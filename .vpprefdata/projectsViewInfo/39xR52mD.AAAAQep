@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ProjectsViewInfo>
-	<DiagramOpenInfos activeDiagramId="lnbR52mD.AAAAQsl">
-		<Info bounds="Re:0.0,0.0,0.0,0.0" diagramId="cghokOmGAqFkLBpa" maximized="true" offsetX="0" offsetY="0"/>
+	<DiagramOpenInfos activeDiagramId="0V53ZOmGAqACFwXc">
 		<Info bounds="Re:0.0,0.0,0.0,0.0" diagramId="RlSs2OmGAqACFwuL" maximized="true" offsetX="0" offsetY="0"/>
 		<Info bounds="Re:0.0,0.0,0.0,0.0" diagramId="ZlUWhOmGAqACZAmW" maximized="true" offsetX="0" offsetY="0"/>
 		<Info bounds="Re:0.0,0.0,0.0,0.0" diagramId="ELOIkOmGAqFkLBkg" maximized="true" offsetX="0" offsetY="0"/>
@@ -15,10 +14,12 @@
 		<Info bounds="Re:0.0,0.0,0.0,0.0" diagramId="oEvpsOmGAqFkLA6V" maximized="true" offsetX="0" offsetY="0"/>
 		<Info bounds="Re:0.0,0.0,0.0,0.0" diagramId="If2CcOmGAqFkLBcd" maximized="true" offsetX="0" offsetY="0"/>
 		<Info bounds="Re:0.0,0.0,0.0,0.0" diagramId="qph8cOmGAqFkLBbW" maximized="true" offsetX="0" offsetY="0"/>
-		<Info bounds="Re:0.0,0.0,1510.0,664.0" diagramId="lnbR52mD.AAAAQsl" maximized="true" offsetX="0" offsetY="322"/>
+		<Info bounds="Re:0.0,0.0,0.0,0.0" diagramId="lnbR52mD.AAAAQsl" maximized="true" offsetX="0" offsetY="0"/>
+		<Info bounds="Re:0.0,0.0,1510.0,664.0" diagramId="0V53ZOmGAqACFwXc" maximized="true" offsetX="0" offsetY="0"/>
 	</DiagramOpenInfos>
 	<DiagramLastActivated>
-		<Diagram id="lnbR52mD.AAAAQsl" time="1748684487984"/>
+		<Diagram id="0V53ZOmGAqACFwXc" time="1748704855156"/>
+		<Diagram id="lnbR52mD.AAAAQsl" time="1748686555254"/>
 		<Diagram id="qph8cOmGAqFkLBbW" time="1748684487750"/>
 		<Diagram id="cghokOmGAqFkLBpa" time="1748615618503"/>
 		<Diagram id="rtXycOmGAqFkLB5x" time="1748615596047"/>
@@ -37,6 +38,5 @@
 		<Diagram id="Use Case" time="0"/>
 		<Diagram id="User Story" time="0"/>
 		<Diagram id="Sprint" time="0"/>
-		<Diagram id="Agile" time="0"/>
 	</DiagramLastActivated>
 </ProjectsViewInfo>
