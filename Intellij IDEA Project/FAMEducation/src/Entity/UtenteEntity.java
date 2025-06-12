@@ -6,12 +6,12 @@ public class UtenteEntity {
     private String cognome;
     private String email;
 
-    public enum Ruolo {DOCENTE, STUDENTE};
+    public enum Ruolo {Docente, Studente};
     private Ruolo ruolo;
 
     private String password;
 
-    //costruttori
+    //Costruttori
 
     public UtenteEntity(String nome, String cognome, String email, Ruolo ruolo, String password) {
         this.nome = nome;
@@ -37,7 +37,7 @@ public class UtenteEntity {
         this.password = utenteEntity.password;
     }
 
-    //getter e setter
+    //Getter e setter
 
     public String getNome() {return nome;}
 

@@ -8,7 +8,6 @@ public class BadgeEntity {
     private String nome;
     private String descrizione;
     private String immagine;
-    private List<BadgeOttenutoEntity> badgeOttenuti = new ArrayList<>();
 
     public BadgeEntity(String nome, String descrizione, String immagine) {
         this.nome = nome;
@@ -39,7 +38,4 @@ public class BadgeEntity {
 
     public void setImmagine(String immagine) {this.immagine = immagine;}
 
-    public List<BadgeOttenutoEntity> getBadgeOttenuti() {return badgeOttenuti;}
-
-    public void aggiungiBadgeOttenuto (BadgeOttenutoEntity badge) {badgeOttenuti.add(badge);}
 }

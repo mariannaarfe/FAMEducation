@@ -7,7 +7,7 @@ import java.util.List;
 public class StudenteEntity extends UtenteEntity{
 
     private List<ConsegnaEntity> consegne = new ArrayList<ConsegnaEntity>();
-    private List<BadgeOttenutoEntity> badgeOttenuti = new ArrayList<>();
+    private BadgeOttenutoEntity badgeOttenuto;
 
     public StudenteEntity(String nome, String cognome, String email, UtenteEntity.Ruolo ruolo, String password) {
         super(nome, cognome, email, ruolo, password);
@@ -25,9 +25,9 @@ public class StudenteEntity extends UtenteEntity{
 
     public void setConsegne(ConsegnaEntity consegna) {consegne.add(consegna);}
 
-    public List<BadgeOttenutoEntity> getBadgeOttenuti() {return badgeOttenuti;}
+    public BadgeOttenutoEntity getBadgeOttenuti() {return badgeOttenuto;}
 
-    public void aggiungiBadge(BadgeEntity badge, LocalDate dataOttenimento) {badgeOttenuti.add(new BadgeOttenutoEntity(this, badge, dataOttenimento));}
+    public void aggiungiBadge(BadgeOttenutoEntity badgeOttenuto) {this.badgeOttenuto=badgeOttenuto;}
 
     @Override
     public String toString() {return super.toString();}
