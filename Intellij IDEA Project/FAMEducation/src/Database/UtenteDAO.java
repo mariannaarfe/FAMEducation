@@ -10,7 +10,7 @@ public class UtenteDAO {
     private String nome;
     private String cognome;
     private String email;
-    private enum Ruolo {Docente, Studente};
+    public enum Ruolo {Docente, Studente};
     private Ruolo ruolo;
     private String password;
 
@@ -20,7 +20,7 @@ public class UtenteDAO {
 
     public void read () {
 
-        String query = "SELECT * FROM Studenti WHERE Email = '" + email + "' UNION SELECT * FROM Docenti WHERE Email = '" + email + "'";
+        String query = "SELECT Email, Nome, Cognome, Ruolo, Password FROM Studenti WHERE Email = '" + email + "' UNION SELECT Email, Nome, Cognome, Ruolo, Password  FROM Docenti WHERE Email = '" + email + "';";
 
         try {
 
@@ -47,12 +47,12 @@ public class UtenteDAO {
 
         int ret = 0;
 
-        String queryStudenti = "INSERT INTO Studenti VALUES (\'"+email+"\', \\'\"+nome+\"\\', \\'\"+cognome+\"\\', \\'\"+password+\"\\', \\'\"+ruolo+\"\\')";
-        String queryDocenti = "INSERT INTO Docenti VALUES (\'"+email+"\', \\'\"+nome+\"\\', \\'\"+cognome+\"\\', \\'\"+password+\"\\', \\'\"+ruolo+\"\\')";
+        String queryStudenti = "INSERT INTO Studenti VALUES (\'"+email+"\', \\'\"+nome+\"\\', \\'\"+cognome+\"\\', \\'\"+password+\"\\', \\'\"+ruolo+\"\\');";
+        String queryDocenti = "INSERT INTO Docenti VALUES (\'"+email+"\', \\'\"+nome+\"\\', \\'\"+cognome+\"\\', \\'\"+ruolo+\"\\', \\'\"+password+\"\\');";
 
         try {
 
-            if (ruolo == Ruolo.Docente) {
+            if (this.ruolo == Ruolo.Docente) {
 
                 ret = DBManager.updateQuery(queryDocenti);
 
