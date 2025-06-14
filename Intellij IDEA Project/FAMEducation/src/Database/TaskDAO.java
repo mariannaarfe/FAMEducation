@@ -43,7 +43,7 @@ public class TaskDAO {
 
     public void read() {
 
-        String query = "SELECT * FROM Task WHERE ClassiVirtuali_CodiceUnivoco = '" + this.emailDocente + "' AND Titolo = '"+this.titolo+"';";
+        String query = "SELECT * FROM Task WHERE Docenti_Email = '" + this.emailDocente + "' AND Titolo = '"+this.titolo+"';";
 
         try {
 
