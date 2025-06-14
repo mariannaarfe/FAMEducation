@@ -7,15 +7,19 @@ public class ConsegnaEntity {
     private TaskEntity task;
     private StudenteEntity studente;
 
-    public ConsegnaEntity(String soluzione, int punteggio) {
+    public ConsegnaEntity(String soluzione, int punteggio, StudenteEntity studente, TaskEntity task) {
         this.soluzione = soluzione;
         this.punteggio = punteggio;
+        this.studente = studente;
+        this.task = task;
     }
 
     public ConsegnaEntity() {
 
         this.soluzione = "";
         this.punteggio = 0;
+        this.studente = null;
+        this.task = null;
 
     }
 
@@ -23,24 +27,42 @@ public class ConsegnaEntity {
 
         this.soluzione = consegnaEntity.soluzione;
         this.punteggio = consegnaEntity.punteggio;
+        this.studente = consegnaEntity.studente;
+        this.task = consegnaEntity.task;
 
     }
 
-    public String getSoluzione() {return soluzione;}
+    public String getSoluzione() {
+        return soluzione;
+    }
 
-    public void setSoluzione(String soluzione) {this.soluzione = soluzione;}
+    public void setSoluzione(String soluzione) {
+        this.soluzione = soluzione;
+    }
 
-    public int getPunteggio() {return punteggio;}
+    public int getPunteggio() {
+        return punteggio;
+    }
 
-    public void setPunteggio(int punteggio) {this.punteggio = punteggio;}
+    public void setPunteggio(int punteggio) {
+        this.punteggio = punteggio;
+    }
 
-    public TaskEntity getTask() {return task;}
+    public TaskEntity getTask() {
+        return task;
+    }
 
-    public void setTask(TaskEntity task) {this.task = task;}
+    public void setTask(TaskEntity task) {
+        this.task = task;
+    }
 
-    public StudenteEntity getStudente() {return studente;}
+    public StudenteEntity getStudente() {
+        return studente;
+    }
 
-    public void setStudente(StudenteEntity studente) {this.studente = studente;}
+    public void setStudente(StudenteEntity studente) {
+        this.studente = studente;
+    }
 
     //public void valutaConsegna () {}
 

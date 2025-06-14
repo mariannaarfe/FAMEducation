@@ -1,43 +1,60 @@
 package Entity;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class StudenteEntity extends UtenteEntity{
 
-    private List<ConsegnaEntity> consegne = new ArrayList<ConsegnaEntity>();
+    private ArrayList<ConsegnaEntity> consegne;
     private BadgeOttenutoEntity badgeOttenuto;
 
     public StudenteEntity(String nome, String cognome, String email, UtenteEntity.Ruolo ruolo, String password) {
         super(nome, cognome, email, ruolo, password);
+        this.consegne = new ArrayList<>();
     }
 
     public StudenteEntity() {
         super();
+        this.consegne = null;
     }
 
-    public StudenteEntity(UtenteEntity utenteEntity) {
-        super(utenteEntity);
+    public StudenteEntity(StudenteEntity e) {
+        super(e);
+        this.consegne = e.consegne;
     }
 
-    public List<ConsegnaEntity> getConsegne() {return consegne;}
+    public ArrayList<ConsegnaEntity> getConsegne() {
+        return consegne;
+    }
 
-    public void setConsegne(ConsegnaEntity consegna) {consegne.add(consegna);}
+    public void setConsegne(ArrayList<ConsegnaEntity> consegne) {
+        this.consegne = consegne;
+    }
 
-    public BadgeOttenutoEntity getBadgeOttenuti() {return badgeOttenuto;}
+    public BadgeOttenutoEntity getBadgeOttenuto() {
+        return badgeOttenuto;
+    }
 
-    public void aggiungiBadge(BadgeOttenutoEntity badgeOttenuto) {this.badgeOttenuto=badgeOttenuto;}
+    public void setBadgeOttenuto(BadgeOttenutoEntity badgeOttenuto) {
+        this.badgeOttenuto = badgeOttenuto;
+    }
 
     @Override
     public String toString() {return super.toString();}
 
-    public void IscrizioneIndiretta (String codice) {}
+    public void IscrizioneIndiretta (String codice) {
+
+        //TBD
+
+    }
 
     //metodi non implementati
 
     //public void visualizzaProfilo () {}
 
-    //public void consegnaTask () {}
+    public void consegnaTask (ConsegnaEntity consegna) {
+        this.consegne.add(consegna);
+
+        //la restante parte, compresa di gestione della pertinenza con il database, non è implementata
+    }
 
 }

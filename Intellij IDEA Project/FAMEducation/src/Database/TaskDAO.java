@@ -11,10 +11,11 @@ public class TaskDAO {
     private LocalDate scadenza;
     private int maxPuntiAssegnabili;
     private String codiceUnivoco;
+    private String emailDocente;
 
-    public TaskDAO(String titolo, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili, String codiceUnivoco) {
+    public TaskDAO(String titolo, String emailDocente) {
         this.titolo = titolo;
-        this.codiceUnivoco = codiceUnivoco;
+        this.emailDocente = emailDocente;
         read();
     }
 
@@ -42,7 +43,7 @@ public class TaskDAO {
 
     public void read() {
 
-        String query = "SELECT * FROM Task WHERE ClassiVirtuali_CodiceUnivoco = '" + this.codiceUnivoco + "' AND Titolo = '"+this.titolo+"';";
+        String query = "SELECT * FROM Task WHERE ClassiVirtuali_CodiceUnivoco = '" + this.emailDocente + "' AND Titolo = '"+this.titolo+"';";
 
         try {
 
@@ -52,6 +53,7 @@ public class TaskDAO {
 
                 this.setDescrizione(rs.getString("Descrizione"));
                 this.setMaxPuntiAssegnabili(rs.getInt("MaxPuntiAssegnabili"));
+                this.setCodiceUnivoco(rs.getString("ClassiVirtuali_CodiceUnivoco"));
                 java.sql.Date date = rs.getDate("Scadenza");
                 this.setScadenza(date.toLocalDate());
 
@@ -69,7 +71,7 @@ public class TaskDAO {
 
         int ret = 0;
 
-        String query = "INSERT INTO Task VALUES (" + this.titolo + ", " + this.descrizione + ", " + this.scadenza +", " + this.maxPuntiAssegnabili +");";
+        String query = "INSERT INTO Task (Titolo, Docenti_Email, Descrizione, Scadenza, MaxPuntiAssegnabili) VALUES (" + this.titolo + ", " + this.emailDocente + ", " + this.descrizione + ", " + this.scadenza +", " + this.maxPuntiAssegnabili +");";
 
         try {
 

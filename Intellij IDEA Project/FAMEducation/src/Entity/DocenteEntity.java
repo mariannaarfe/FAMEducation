@@ -1,29 +1,61 @@
 package Entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DocenteEntity extends UtenteEntity{
 
-    private List<ClasseVirtualeEntity> classi = new ArrayList<>();
+    private ArrayList<ClasseVirtualeEntity> classi;
+    private ArrayList<TaskEntity> task;
 
-    public DocenteEntity(String nome, String cognome, String email, Ruolo ruolo, String password) {super(nome, cognome, email, ruolo, password);}
-
-    public DocenteEntity() {super();}
-
-    public DocenteEntity(UtenteEntity utenteEntity) {super(utenteEntity);}
-
-    public List<ClasseVirtualeEntity> getClassi() {return classi;}
-
-    public void aggiungiClasse(ClasseVirtualeEntity classe) {
-        classi.add(classe);
+    public DocenteEntity(String nome, String cognome, String email, Ruolo ruolo, String password) {
+        super(nome, cognome, email, ruolo, password);
+        this.classi = new ArrayList<>();
+        this.task = new ArrayList<>();
     }
+
+    public DocenteEntity() {super(); this.classi = null; this.task = null;}
+
+    public DocenteEntity(DocenteEntity docente) {
+
+        super(docente);
+        this.classi = docente.classi;
+        this.task = docente.task;
+
+    }
+
+    public ArrayList<ClasseVirtualeEntity> getClassi() {
+        return classi;
+    }
+
+    public void setClassi(ArrayList<ClasseVirtualeEntity> classi) {
+        this.classi = classi;
+    }
+
+    public ArrayList<TaskEntity> getTask() {
+        return task;
+    }
+
+    public void setTask(ArrayList<TaskEntity> task) {
+        this.task = task;
+    }
+
+
 
     @Override
     public String toString() {return super.toString();}
 
-    //public String creaClasse(String nome) {return codiceUnivico;}
+    public void creaTask(String nome, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {
 
-    //public void creaTask(String nome, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {}
+        //continuare
+
+    }
+
+
+    //metodi non implementati:
+
+    //public String creaClasse(String nome) {}
+
 
 }

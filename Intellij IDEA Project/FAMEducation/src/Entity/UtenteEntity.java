@@ -39,25 +39,46 @@ public class UtenteEntity {
 
     //Getter e setter
 
-    public String getNome() {return nome;}
 
-    public String getCognome() {return cognome;}
+    public String getNome() {
+        return nome;
+    }
 
-    public String getEmail() {return email;}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public Ruolo getRuolo() {return ruolo;}
+    public String getCognome() {
+        return cognome;
+    }
 
-    public String getPassword() {return password;}
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
 
-    public void setNome(String nome) {this.nome = nome;}
+    public String getEmail() {
+        return email;
+    }
 
-    public void setCognome(String cognome) {this.cognome = cognome;}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public void setEmail(String email) {this.email = email;}
+    public Ruolo getRuolo() {
+        return ruolo;
+    }
 
-    public void setRuolo(Ruolo ruolo) {this.ruolo = ruolo;}
+    public void setRuolo(Ruolo ruolo) {
+        this.ruolo = ruolo;
+    }
 
-    public void setPassword(String password) {this.password = password;}
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public String toString() {
