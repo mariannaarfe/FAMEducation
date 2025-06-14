@@ -17,7 +17,7 @@ public class ClasseVirtualeDAO {
     public ClasseVirtualeDAO(String codiceUnivoco) {
 
         this.codiceUnivoco = codiceUnivoco;
-        read();
+
 
     }
 

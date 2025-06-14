@@ -36,8 +36,8 @@ public class StudenteEntity extends UtenteEntity{
 
     //metodi non implementati
 
-    //public void VisualizzaProfilo () {}
+    //public void visualizzaProfilo () {}
 
-    //public void ConsegnaTask () {}
+    //public void consegnaTask () {}
 
 }

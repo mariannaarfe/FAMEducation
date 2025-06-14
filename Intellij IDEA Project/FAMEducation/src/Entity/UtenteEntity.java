@@ -70,8 +70,8 @@ public class UtenteEntity {
                 '}';
     }
 
-    public void RegistraUtente (String nome, String cognome, String email, Ruolo ruolo, String password) {}
+    public void registraUtente (String nome, String cognome, String email, Ruolo ruolo, String password) {}
 
-    public void Accesso (String nome, String cognome, String email, Ruolo ruolo, String password) {}
+    public void accesso (String nome, String cognome, String email, Ruolo ruolo, String password) {}
 
 }

@@ -22,8 +22,8 @@ public class DocenteEntity extends UtenteEntity{
     @Override
     public String toString() {return super.toString();}
 
-    //public String CreaClasse(String nome) {return codiceUnivico;}
+    //public String creaClasse(String nome) {return codiceUnivico;}
 
-    //public void CreaTask(String nome, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {}
+    //public void creaTask(String nome, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {}
 
 }

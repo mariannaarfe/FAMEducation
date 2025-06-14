@@ -18,6 +18,26 @@ public class UtenteDAO {
 
     public UtenteDAO() {super();}
 
+    public String getNome() {return nome;}
+
+    public void setNome(String nome) {this.nome = nome;}
+
+    public String getCognome() {return cognome;}
+
+    public void setCognome(String cognome) {this.cognome = cognome;}
+
+    public String getEmail() {return email;}
+
+    public void setEmail(String email) {this.email = email;}
+
+    public Ruolo getRuolo() {return ruolo;}
+
+    public void setRuolo(Ruolo ruolo) {this.ruolo = ruolo;}
+
+    public String getPassword() {return password;}
+
+    public void setPassword(String password) {this.password = password;}
+
     public void read () {
 
         String query = "SELECT Email, Nome, Cognome, Ruolo, Password FROM Studenti WHERE Email = '" + email + "' UNION SELECT Email, Nome, Cognome, Ruolo, Password  FROM Docenti WHERE Email = '" + email + "';";
@@ -47,8 +67,8 @@ public class UtenteDAO {
 
         int ret = 0;
 
-        String queryStudenti = "INSERT INTO Studenti VALUES (\'"+email+"\', \\'\"+nome+\"\\', \\'\"+cognome+\"\\', \\'\"+password+\"\\', \\'\"+ruolo+\"\\');";
-        String queryDocenti = "INSERT INTO Docenti VALUES (\'"+email+"\', \\'\"+nome+\"\\', \\'\"+cognome+\"\\', \\'\"+ruolo+\"\\', \\'\"+password+\"\\');";
+        String queryStudenti = "INSERT INTO Studenti VALUES (" + this.email + ", " + this.nome + ", " + this.cognome +", " + this.password +", "+ this.ruolo+");";
+        String queryDocenti = "INSERT INTO Docenti VALUES (" + this.email + ", " + this.nome + ", " + this.cognome +", " + this.ruolo +", "+ this.password+");";
 
         try {
 
@@ -72,26 +92,6 @@ public class UtenteDAO {
         return ret;
 
     }
-
-    public String getNome() {return nome;}
-
-    public void setNome(String nome) {this.nome = nome;}
-
-    public String getCognome() {return cognome;}
-
-    public void setCognome(String cognome) {this.cognome = cognome;}
-
-    public String getEmail() {return email;}
-
-    public void setEmail(String email) {this.email = email;}
-
-    public Ruolo getRuolo() {return ruolo;}
-
-    public void setRuolo(Ruolo ruolo) {this.ruolo = ruolo;}
-
-    public String getPassword() {return password;}
-
-    public void setPassword(String password) {this.password = password;}
 
     @Override
     public String toString() {

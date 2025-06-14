@@ -41,8 +41,8 @@ public class ClasseVirtualeEntity {
 
     public void setTask(TaskEntity task) {this.task.add(task);}
 
-    //public void VisualizzaTask (TaskEntity task) {}
+    //public void visualizzaTask (TaskEntity task) {}
 
-    //public void MonitoraAndamento () {}
+    //public void monitoraAndamento () {}
 
 }

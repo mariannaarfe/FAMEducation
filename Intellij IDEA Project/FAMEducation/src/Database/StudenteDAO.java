@@ -7,7 +7,7 @@ public class StudenteDAO extends UtenteDAO {
 
     private String codiceUnivoco;
 
-    public StudenteDAO(String email) {super(email);}
+    public StudenteDAO(String email) {super(email); read();}
 
     public StudenteDAO() {super();}
 
@@ -30,7 +30,7 @@ public class StudenteDAO extends UtenteDAO {
                 this.setCognome(rs.getString("Cognome"));
                 this.setPassword(rs.getString("Password"));
                 this.setRuolo(Ruolo.valueOf(rs.getString("Ruolo"))); //valueOf passa da stringa a enum
-                this.setEmail(rs.getString("ClassiVirtuali_CodiceUnivoco"));
+                this.setCodiceUnivoco(rs.getString("ClassiVirtuali_CodiceUnivoco"));
             }
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -62,6 +62,30 @@ public class StudenteDAO extends UtenteDAO {
 
         return ret;
 
+    }
+
+    public boolean controlloIscrizione () {
+
+        String query = "SELECT * FROM Studenti WHERE Email = '" + super.getEmail() + "' AND ClassiVirtuali_CodiceUnivoco IS NULL;";
+        boolean bool = false;
+
+        try {
+
+            ResultSet rs = DBManager.selectQuery(query);
+
+            if (rs.next()) {
+
+                bool = true; //lo studente non è iscritto a nessuna classe
+
+            } else {bool = false;}
+
+        } catch (ClassNotFoundException | SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return bool;
     }
 
 }

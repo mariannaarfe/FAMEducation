@@ -42,6 +42,6 @@ public class ConsegnaEntity {
 
     public void setStudente(StudenteEntity studente) {this.studente = studente;}
 
-    //public void ValutaConsegna () {}
+    //public void valutaConsegna () {}
 
 }
