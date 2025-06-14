@@ -1,5 +1,7 @@
 package Database;
 
+import Entity.Ruolo;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -41,13 +43,13 @@ public class StudenteDAO extends UtenteDAO {
 
     }
 
-    @Override
-    public int write(String email) {
+
+    public int iscriviAClasse(String codiceUnivoco) {
 
         int ret = 0;
 
-        String query = "UPDATE Studenti SET ClassiVirtuali_CodiceUnivoco = '"+ this.codiceUnivoco +
-                "' WHERE Email = '"+ email +"';";
+        String query = "UPDATE Studenti SET ClassiVirtuali_CodiceUnivoco = '"+ codiceUnivoco +
+                "' WHERE Email = '"+ super.getEmail() +"';";
 
         try {
 
@@ -64,9 +66,9 @@ public class StudenteDAO extends UtenteDAO {
 
     }
 
-    public boolean controlloIscrizione () {
+    public boolean controlloIscrizione (String email) {
 
-        String query = "SELECT * FROM Studenti WHERE Email = '" + super.getEmail() + "' AND ClassiVirtuali_CodiceUnivoco IS NULL;";
+        String query = "SELECT * FROM Studenti WHERE Email = '" + email + "' AND ClassiVirtuali_CodiceUnivoco IS NULL;";
         boolean bool = false;
 
         try {

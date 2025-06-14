@@ -1,5 +1,7 @@
 package Entity;
 
+import Database.StudenteDAO;
+
 import java.util.ArrayList;
 
 public class StudenteEntity extends UtenteEntity{
@@ -7,7 +9,7 @@ public class StudenteEntity extends UtenteEntity{
     private ArrayList<ConsegnaEntity> consegne;
     private BadgeOttenutoEntity badgeOttenuto;
 
-    public StudenteEntity(String nome, String cognome, String email, UtenteEntity.Ruolo ruolo, String password) {
+    public StudenteEntity(String nome, String cognome, String email, Ruolo ruolo, String password) {
         super(nome, cognome, email, ruolo, password);
         this.consegne = new ArrayList<>();
     }
@@ -41,9 +43,24 @@ public class StudenteEntity extends UtenteEntity{
     @Override
     public String toString() {return super.toString();}
 
-    public void IscrizioneIndiretta (String codice) {
+    public int iscrizioneIndiretta (String codice) {
 
-        //TBD
+        int ret = 0;
+
+        StudenteDAO studenteDAO = new StudenteDAO(super.getEmail());
+
+        if (studenteDAO.controlloIscrizione(studenteDAO.getEmail())) {
+
+            studenteDAO.iscriviAClasse(studenteDAO.getCodiceUnivoco());
+            ret = 0;
+
+        } else {
+
+            System.out.println("Studente già iscritto ad una classe.");
+
+        }
+
+        return ret;
 
     }
 

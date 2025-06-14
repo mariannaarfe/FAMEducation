@@ -1,5 +1,7 @@
 package Entity;
 
+import Database.TaskDAO;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +48,11 @@ public class DocenteEntity extends UtenteEntity{
     @Override
     public String toString() {return super.toString();}
 
-    public void creaTask(String nome, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {
+    public void creaTask(String titolo, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {
 
-        //continuare
+        TaskDAO nuovoTask = new TaskDAO();
+
+        nuovoTask.write(titolo, super.getEmail(), descrizione, scadenza, maxPuntiAssegnabili);
 
     }
 

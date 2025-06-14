@@ -1,5 +1,8 @@
 package Database;
 
+import Entity.Ruolo;
+import Entity.UtenteEntity;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -10,7 +13,6 @@ public class UtenteDAO {
     private String nome;
     private String cognome;
     private String email;
-    public enum Ruolo {Docente, Studente};
     private Ruolo ruolo;
     private String password;
 
@@ -40,7 +42,7 @@ public class UtenteDAO {
 
     public void read () {
 
-        String query = "SELECT Email, Nome, Cognome, Ruolo, Password FROM Studenti WHERE Email = '" + email + "' UNION SELECT Email, Nome, Cognome, Ruolo, Password  FROM Docenti WHERE Email = '" + email + "';";
+        String query = "SELECT Email, Nome, Cognome, Ruolo, Password FROM Studenti WHERE Email = '" + this.email + "' UNION SELECT Email, Nome, Cognome, Ruolo, Password  FROM Docenti WHERE Email = '" + this.email + "';";
 
         try {
 
@@ -63,12 +65,12 @@ public class UtenteDAO {
 
     }
 
-    public int write(String email) {
+    public int write(String email, String nome, String cognome, Ruolo ruolo, String password) {
 
         int ret = 0;
 
-        String queryStudenti = "INSERT INTO Studenti VALUES (" + this.email + ", " + this.nome + ", " + this.cognome +", " + this.password +", "+ this.ruolo+");";
-        String queryDocenti = "INSERT INTO Docenti VALUES (" + this.email + ", " + this.nome + ", " + this.cognome +", " + this.ruolo +", "+ this.password+");";
+        String queryStudenti = "INSERT INTO Studenti VALUES (" + email + ", " + nome + ", " + cognome +", " + password +", "+ ruolo+");";
+        String queryDocenti = "INSERT INTO Docenti VALUES (" + email + ", " + nome + ", " + cognome +", " + ruolo +", "+ password+");";
 
         try {
 
@@ -90,6 +92,32 @@ public class UtenteDAO {
         }
 
         return ret;
+
+    }
+
+    public boolean utenteEsistente(String email) {
+
+        String query = "SELECT COUNT (*) FROM Studenti WHERE Email = '" + email + "' UNION SELECT COUNT (*) FROM Docenti WHERE Email = '" + email + "';";
+
+        boolean bool = false;
+
+        try {
+
+            ResultSet rs = DBManager.selectQuery(query);
+
+            if (rs.next()) {
+
+                bool =  rs.getInt(1) > 0;
+
+            } else {bool = false;}
+
+        } catch (ClassNotFoundException | SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return bool;
 
     }
 

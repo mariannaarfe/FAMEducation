@@ -1,14 +1,13 @@
 package Entity;
 
+import Database.UtenteDAO;
+
 public class UtenteEntity {
 
     private String nome;
     private String cognome;
     private String email;
-
-    public enum Ruolo {Docente, Studente};
     private Ruolo ruolo;
-
     private String password;
 
     //Costruttori
@@ -91,8 +90,29 @@ public class UtenteEntity {
                 '}';
     }
 
-    public void registraUtente (String nome, String cognome, String email, Ruolo ruolo, String password) {}
+    public int registraUtente (String nome, String cognome, String email, Ruolo ruolo, String password) {
 
-    public void accesso (String nome, String cognome, String email, Ruolo ruolo, String password) {}
+        int ret = 0;
+
+        UtenteDAO nuovoUtente = new UtenteDAO();
+
+        if (nuovoUtente.utenteEsistente(email) == true) {
+
+            ret = -1;
+            System.out.println("L'utente esiste già!");
+
+        } else {
+
+            nuovoUtente.write(email, nome, cognome, ruolo, password);
+            System.out.println("L'utente è stato registrato!");
+            ret = 1;
+
+        }
+
+        return ret;
+
+    }
+
+    //public void accesso (String nome, String cognome, String email, Ruolo ruolo, String password) {}
 
 }

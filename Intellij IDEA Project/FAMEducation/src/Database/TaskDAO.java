@@ -67,11 +67,11 @@ public class TaskDAO {
 
     }
 
-    public int write() {
+    public int write(String titolo, String emailDocente, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {
 
         int ret = 0;
 
-        String query = "INSERT INTO Task (Titolo, Docenti_Email, Descrizione, Scadenza, MaxPuntiAssegnabili) VALUES (" + this.titolo + ", " + this.emailDocente + ", " + this.descrizione + ", " + this.scadenza +", " + this.maxPuntiAssegnabili +");";
+        String query = "INSERT INTO Task (Titolo, Docenti_Email, Descrizione, Scadenza, MaxPuntiAssegnabili) VALUES (" + titolo + ", " + emailDocente + ", " + descrizione + ", " + scadenza +", " + maxPuntiAssegnabili +");";
 
         try {
 
