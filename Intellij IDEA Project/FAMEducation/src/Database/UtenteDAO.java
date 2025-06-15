@@ -69,12 +69,12 @@ public class UtenteDAO {
 
         int ret = 0;
 
-        String queryStudenti = "INSERT INTO Studenti VALUES (" + email + ", " + nome + ", " + cognome +", " + password +", "+ ruolo+");";
-        String queryDocenti = "INSERT INTO Docenti VALUES (" + email + ", " + nome + ", " + cognome +", " + ruolo +", "+ password+");";
+        String queryStudenti = "INSERT INTO Studenti (Email, Nome, Cognome, Password, Ruolo) VALUES ('" + email + "', '" + nome + "', '" + cognome +"', '" + password +"', '"+ ruolo+"');";
+        String queryDocenti = "INSERT INTO Docenti (Email, Nome, Cognome, Ruolo, Password) VALUES ('" + email + "', '" + nome + "', '" + cognome +"', '" + ruolo +"', '"+ password+"');";
 
         try {
 
-            if (this.ruolo == Ruolo.Docente) {
+            if (ruolo == Ruolo.Docente) {
 
                 ret = DBManager.updateQuery(queryDocenti);
 
@@ -97,19 +97,34 @@ public class UtenteDAO {
 
     public boolean utenteEsistente(String email) {
 
-        String query = "SELECT COUNT (*) FROM Studenti WHERE Email = '" + email + "' UNION SELECT COUNT (*) FROM Docenti WHERE Email = '" + email + "';";
-
+        String query1 = "SELECT COUNT(*) FROM Studenti WHERE Email = '" + email + "';";
+        String query2 = "SELECT COUNT(*) FROM Docenti WHERE Email = '" + email + "';";
         boolean bool = false;
+        int risultato = 0;
 
         try {
 
-            ResultSet rs = DBManager.selectQuery(query);
+            ResultSet rs = DBManager.selectQuery(query1);
 
             if (rs.next()) {
 
-                bool =  rs.getInt(1) > 0;
+                risultato += rs.getInt(1);
 
-            } else {bool = false;}
+            }
+
+            rs = DBManager.selectQuery(query2);
+
+            if (rs.next()) {
+
+                risultato += rs.getInt(1);
+
+            }
+
+            if(risultato > 0){
+                bool = true;
+            } else {
+                bool = false;
+            }
 
         } catch (ClassNotFoundException | SQLException e) {
 

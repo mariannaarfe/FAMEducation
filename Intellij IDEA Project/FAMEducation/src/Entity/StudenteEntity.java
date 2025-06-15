@@ -51,12 +51,13 @@ public class StudenteEntity extends UtenteEntity{
 
         if (studenteDAO.controlloIscrizione(studenteDAO.getEmail())) {
 
-            studenteDAO.iscriviAClasse(studenteDAO.getCodiceUnivoco());
+            studenteDAO.iscriviAClasse(codice);
             ret = 0;
 
         } else {
 
             System.out.println("Studente già iscritto ad una classe.");
+            ret=-1;
 
         }
 
