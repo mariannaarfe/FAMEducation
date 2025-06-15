@@ -53,7 +53,8 @@ public class StudenteDAO extends UtenteDAO {
 
         try {
 
-            ret = DBManager.updateQuery(query);
+            DBManager.updateQuery(query);
+            ret = 0;
 
         } catch (ClassNotFoundException | SQLException e) {
 

@@ -17,7 +17,7 @@ public class DocenteEntity extends UtenteEntity{
         this.task = new ArrayList<>();
     }
 
-    public DocenteEntity() {super(); this.classi = null; this.task = null;}
+    public DocenteEntity() {super(); this.classi = new ArrayList<>(); this.task = new ArrayList<>();}
 
     public DocenteEntity(DocenteEntity docente) {
 
@@ -48,11 +48,11 @@ public class DocenteEntity extends UtenteEntity{
     @Override
     public String toString() {return super.toString();}
 
-    public void creaTask(String titolo, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {
+    public int creaTask(String titolo, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {
 
         TaskDAO nuovoTask = new TaskDAO();
 
-        nuovoTask.write(titolo, super.getEmail(), descrizione, scadenza, maxPuntiAssegnabili);
+        return nuovoTask.write(titolo, super.getEmail(), descrizione, scadenza, maxPuntiAssegnabili);
 
     }
 

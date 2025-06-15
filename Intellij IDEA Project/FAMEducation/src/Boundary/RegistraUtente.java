@@ -34,55 +34,9 @@ public class RegistraUtente extends JFrame {
                 Ruolo ruolo;
                 String password;
 
-                if (nome_text.getText().length() == 0 || nome_text.getText().length() > 50) {
+                int ret = controlloDati();
 
-                    JOptionPane.showMessageDialog(new JFrame(), "La lunghezza del nome deve essere compreso tra 1 e 50 caratteri", "Errore inserimento nome", JOptionPane.ERROR_MESSAGE);
-
-                } else {datiValidi = true;}
-
-                if (cognome_text.getText().length() == 0 || cognome_text.getText().length() > 50) {
-
-                    JOptionPane.showMessageDialog(new JFrame(), "La lunghezza del cognome deve essere compreso tra 1 e 50 caratteri", "Errore inserimento cognome", JOptionPane.ERROR_MESSAGE);
-
-                } else {datiValidi = true;}
-
-                if (email_text.getText().length() == 0 || email_text.getText().length() > 50) {
-
-                    JOptionPane.showMessageDialog(new JFrame(), "La lunghezza della e-mail deve essere compreso tra 1 e 50 caratteri", "Errore inserimento e-mail", JOptionPane.ERROR_MESSAGE);
-
-                } else {datiValidi = true;}
-
-                if (password_text.getText().length() == 0 || password_text.getText().length() > 15) {
-
-                    JOptionPane.showMessageDialog(new JFrame(), "La lunghezza della password deve essere compreso tra 1 e 50 caratteri", "Errore inserimento password", JOptionPane.ERROR_MESSAGE);
-
-                } else {datiValidi = true;}
-
-                if (nome_text.getText().matches("^(?=.*[0-9])(?=.*[!@#\\$%^&*()_+\\-=\\[\\]{};:\"\\\\|,.<>\\/?]).+$")) {
-
-                    JOptionPane.showMessageDialog(new JFrame(), "Il nome non può contenere caratteri speciali", "Errore inserimento nome", JOptionPane.ERROR_MESSAGE);
-
-                } else {datiValidi = true;}
-
-                if (cognome_text.getText().matches("^(?=.*[0-9])(?=.*[!@#\\$%^&*()_+\\-=\\[\\]{};:\"\\\\|,.<>\\/?]).+$")) {
-
-                    JOptionPane.showMessageDialog(new JFrame(), "Il cognome non può contenere caratteri speciali", "Errore inserimento cognome", JOptionPane.ERROR_MESSAGE);
-
-                } else {datiValidi = true;}
-
-                if (!(email_text.getText().matches(".*@.*"))) {
-
-                    JOptionPane.showMessageDialog(new JFrame(), "La e-mail deve necessariamente contenere la chiocciola", "Errore inserimento email", JOptionPane.ERROR_MESSAGE);
-
-                } else {datiValidi = true;}
-
-                if (!(password_text.getText().matches("^(?=.*[0-9])(?=.*[^a-zA-Z0-9]).+$"))) {
-
-                    JOptionPane.showMessageDialog(new JFrame(), "La password deve necessariamente contenere un numero e un carattere speciale", "Errore inserimento password", JOptionPane.ERROR_MESSAGE);
-
-                } else {datiValidi = true;}
-
-                if (datiValidi) {
+                if (ret == 0) {
 
                     nome = nome_text.getText();
                     cognome = cognome_text.getText();
@@ -91,19 +45,38 @@ public class RegistraUtente extends JFrame {
                     ruolo = Ruolo.valueOf(ruolo_combo.getSelectedItem().toString());
 
                     controller = new ControllerGestoreClasse();
-                    controller.registraUtente(nome, cognome, email, ruolo, password);
-                    controller.setNome (nome);
-                    controller.setEmail (email);
 
-                    if (ruolo == Ruolo.Studente) {
+                    int controllo = controller.registraUtente(nome, cognome, email, ruolo, password);
 
-                        new Studente(controller);
+                    if (controllo == 0) {
+
+                        JOptionPane.showMessageDialog(new JFrame(), "L'utente è stato registrato correttamente", "Utente registrato", JOptionPane.WARNING_MESSAGE);
+                        controller.setNome (nome);
+                        controller.setEmail (email);
+
+                        if (ruolo == Ruolo.Studente) {
+
+                            new Studente(controller);
+                            dispose();
+
+                        } else {
+
+                            new Docente(controller);
+                            dispose();
+
+                        }
+
+                    } else if (controllo == -1) {
+
+                        JOptionPane.showMessageDialog(new JFrame(), "L'utente esiste già!", "Utente non registrato", JOptionPane.ERROR_MESSAGE);
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(new JFrame(), "Errore generico nella registrazione", "Utente non registrato", JOptionPane.ERROR_MESSAGE);
 
                     }
 
-
                 }
-
 
             }
         });
@@ -127,6 +100,70 @@ public class RegistraUtente extends JFrame {
         registraUtente.setTitle("FAMEducation - Registrazione");
 
         registraUtente.setSize(530, 350);
+
+    }
+
+    public int controlloDati() {
+
+        int ret = 0;
+
+        if (nome_text.getText().length() == 0 || nome_text.getText().length() > 50) {
+
+            JOptionPane.showMessageDialog(new JFrame(), "La lunghezza del nome deve essere compreso tra 1 e 50 caratteri", "Errore inserimento nome", JOptionPane.ERROR_MESSAGE);
+            ret=-1;
+
+        }
+
+        if (cognome_text.getText().length() == 0 || cognome_text.getText().length() > 50) {
+
+            JOptionPane.showMessageDialog(new JFrame(), "La lunghezza del cognome deve essere compreso tra 1 e 50 caratteri", "Errore inserimento cognome", JOptionPane.ERROR_MESSAGE);
+            ret=-1;
+
+        }
+
+        if (email_text.getText().length() == 0 || email_text.getText().length() > 50) {
+
+            JOptionPane.showMessageDialog(new JFrame(), "La lunghezza della e-mail deve essere compreso tra 1 e 50 caratteri", "Errore inserimento e-mail", JOptionPane.ERROR_MESSAGE);
+            ret=-1;
+
+        }
+
+        if (password_text.getText().length() == 0 || password_text.getText().length() > 15) {
+
+            JOptionPane.showMessageDialog(new JFrame(), "La lunghezza della password deve essere compreso tra 1 e 50 caratteri", "Errore inserimento password", JOptionPane.ERROR_MESSAGE);
+            ret=-1;
+
+        }
+
+        if (!(nome_text.getText().matches("^[\\p{L}' ]+$"))) {
+
+            JOptionPane.showMessageDialog(new JFrame(), "Il nome non può contenere caratteri speciali", "Errore inserimento nome", JOptionPane.ERROR_MESSAGE);
+            ret=-1;
+
+        }
+
+        if (!(cognome_text.getText().matches("^[\\p{L}' ]+$"))) {
+
+            JOptionPane.showMessageDialog(new JFrame(), "Il cognome non può contenere caratteri speciali", "Errore inserimento cognome", JOptionPane.ERROR_MESSAGE);
+            ret=-1;
+
+        }
+
+        if (!(email_text.getText().matches(".*@.*"))) {
+
+            JOptionPane.showMessageDialog(new JFrame(), "La e-mail deve necessariamente contenere la chiocciola", "Errore inserimento email", JOptionPane.ERROR_MESSAGE);
+            ret=-1;
+
+        }
+
+        if (!(password_text.getText().matches("^(?=.*[0-9])(?=.*[^a-zA-Z0-9]).+$"))) {
+
+            JOptionPane.showMessageDialog(new JFrame(), "La password deve necessariamente contenere un numero e un carattere speciale", "Errore inserimento password", JOptionPane.ERROR_MESSAGE);
+            ret=-1;
+
+        }
+
+        return ret;
 
     }
 

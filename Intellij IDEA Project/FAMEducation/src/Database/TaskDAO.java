@@ -71,11 +71,12 @@ public class TaskDAO {
 
         int ret = 0;
 
-        String query = "INSERT INTO Task (Titolo, Docenti_Email, Descrizione, Scadenza, MaxPuntiAssegnabili) VALUES (" + titolo + ", " + emailDocente + ", " + descrizione + ", " + scadenza +", " + maxPuntiAssegnabili +");";
+        String query = "INSERT INTO Task (Titolo, Docenti_Email, Descrizione, Scadenza, MaxPuntiAssegnabili) VALUES ('" + titolo + "', '" + emailDocente + "', '" + descrizione + "', '" + scadenza +"', '" + maxPuntiAssegnabili +"');";
 
         try {
 
-            ret = DBManager.updateQuery(query);
+            DBManager.updateQuery(query);
+            ret = 0;
 
         } catch (ClassNotFoundException | SQLException e) {
 

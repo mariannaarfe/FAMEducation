@@ -18,7 +18,7 @@ public class ClasseVirtualeEntity {
         this.task = new ArrayList<>();
     }
 
-    public ClasseVirtualeEntity() {this.nome = ""; this.codiceUnivoco = ""; this.studenti = null; this.task = null; this.docente = null;}
+    public ClasseVirtualeEntity() {this.nome = ""; this.codiceUnivoco = ""; this.studenti = new ArrayList<>(); this.task = new ArrayList<>(); this.docente = null;}
 
     public ClasseVirtualeEntity(ClasseVirtualeEntity e) {this.nome = e.nome; this.codiceUnivoco = e.codiceUnivoco; this.studenti = e.studenti; this.task = e.task; this.docente = e.docente;}
 

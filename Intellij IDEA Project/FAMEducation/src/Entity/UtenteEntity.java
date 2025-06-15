@@ -103,9 +103,18 @@ public class UtenteEntity {
 
         } else {
 
-            nuovoUtente.write(email, nome, cognome, ruolo, password);
-            System.out.println("L'utente è stato registrato!");
-            ret = 1;
+            int controllo = nuovoUtente.write(email, nome, cognome, ruolo, password);
+
+            if (controllo == 0) {
+
+                ret = 0;
+                System.out.println("L'utente è stato registrato!");
+
+            } else {
+
+                ret = -2;
+
+            }
 
         }
 

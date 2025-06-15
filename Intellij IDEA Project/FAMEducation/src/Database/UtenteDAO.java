@@ -76,11 +76,13 @@ public class UtenteDAO {
 
             if (ruolo == Ruolo.Docente) {
 
-                ret = DBManager.updateQuery(queryDocenti);
+                DBManager.updateQuery(queryDocenti);
+                ret = 0;
 
             } else {
 
-                ret = DBManager.updateQuery(queryStudenti);
+                DBManager.updateQuery(queryStudenti);
+                ret = 0;
 
             }
 

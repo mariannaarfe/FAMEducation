@@ -33,7 +33,7 @@ public class TaskEntity {
         this.scadenza = null;
         this.maxPuntiAssegnabili = 0;
         this.docente = null;
-        this.consegne = null;
+        this.consegne = new ArrayList<>();
         this.classe = null;
 
     }

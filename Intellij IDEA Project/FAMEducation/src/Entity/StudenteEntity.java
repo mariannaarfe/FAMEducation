@@ -16,7 +16,7 @@ public class StudenteEntity extends UtenteEntity{
 
     public StudenteEntity() {
         super();
-        this.consegne = null;
+        this.consegne = new ArrayList<>();
     }
 
     public StudenteEntity(StudenteEntity e) {
@@ -51,8 +51,13 @@ public class StudenteEntity extends UtenteEntity{
 
         if (studenteDAO.controlloIscrizione(studenteDAO.getEmail())) {
 
-            studenteDAO.iscriviAClasse(codice);
-            ret = 0;
+            int controllo = studenteDAO.iscriviAClasse(codice);
+
+            if (controllo == 0) {
+
+                ret = 0;
+
+            } else {ret = -2;}
 
         } else {
 
