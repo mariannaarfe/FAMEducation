@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 public class DBManager {
 
     public static String url = "jdbc:mysql://localhost:3306/";
-    public static String dbName = "mydb1";
+    public static String dbName = "mydb";
     public static String driver = "com.mysql.cj.jdbc.Driver";
     public static String userName = "root";
     public static String password = "adminadmin123";

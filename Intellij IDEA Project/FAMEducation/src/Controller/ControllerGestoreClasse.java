@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class ControllerGestoreClasse {
 
-    public void registraUtente (String nome, String cognome, String email, Ruolo ruolo, String password){
+    public void registraUtente (String nome, String cognome, String email, Ruolo ruolo, String password) {
 
         UtenteEntity nuovoUtente = new UtenteEntity(nome, cognome, email, ruolo, password);
         nuovoUtente.registraUtente(nome, cognome, email, ruolo, password);
@@ -26,6 +26,7 @@ public class ControllerGestoreClasse {
         DocenteEntity docente = new DocenteEntity();
         docente.setEmail(email);
         docente.creaTask(titolo, descrizione, scadenza, maxPuntiAssegnabili);
+
     }
 
 
