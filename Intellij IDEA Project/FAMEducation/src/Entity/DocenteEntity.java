@@ -50,9 +50,13 @@ public class DocenteEntity extends UtenteEntity{
 
     public int creaTask(String titolo, String descrizione, LocalDate scadenza, int maxPuntiAssegnabili) {
 
-        TaskDAO nuovoTask = new TaskDAO();
+        TaskEntity nuovoTask = new TaskEntity(titolo, descrizione, scadenza, maxPuntiAssegnabili, this);
 
-        return nuovoTask.write(titolo, super.getEmail(), descrizione, scadenza, maxPuntiAssegnabili);
+        task.add(nuovoTask);
+
+        TaskDAO nuovoTaskDAO = new TaskDAO();
+
+        return nuovoTaskDAO.write(titolo, super.getEmail(), descrizione, scadenza, maxPuntiAssegnabili);
 
     }
 
