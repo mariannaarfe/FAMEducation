@@ -48,8 +48,9 @@ public class IscrizioneIndiretta extends JFrame {
 
                         case 0 -> {
 
-                        JOptionPane.showMessageDialog(new JFrame(), "L'iscrizione è avvenuta correttamente", "Iscrizione effettuata!", JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
+                            JOptionPane.showMessageDialog(new JFrame(), "L'iscrizione è avvenuta correttamente", "Iscrizione effettuata!", JOptionPane.INFORMATION_MESSAGE);
+                            dispose();
+
                         }
 
                         case -1 -> JOptionPane.showMessageDialog(new JFrame(), "L'utente è già iscritto ad una classe", "Iscrizione non effettuata", JOptionPane.INFORMATION_MESSAGE);
