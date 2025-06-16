@@ -19,8 +19,6 @@ public class RegistraUtente extends JFrame {
     private JComboBox ruolo_combo;
     private JCheckBox visualizzaPasswordCheckBox;
 
-    private ControllerGestoreClasse controller;
-
     public RegistraUtente() {
         registratiButton.addActionListener(new ActionListener() {
             @Override
@@ -44,7 +42,7 @@ public class RegistraUtente extends JFrame {
                     password = password_text.getText();
                     ruolo = Ruolo.valueOf(ruolo_combo.getSelectedItem().toString());
 
-                    controller = new ControllerGestoreClasse();
+                    ControllerGestoreClasse controller = ControllerGestoreClasse.getInstance();
 
                     int controllo = controller.registraUtente(nome, cognome, email, ruolo, password);
 
@@ -52,18 +50,16 @@ public class RegistraUtente extends JFrame {
 
                         case 0 ->{
                             JOptionPane.showMessageDialog(new JFrame(), "L'utente è stato registrato correttamente", "Utente registrato", JOptionPane.WARNING_MESSAGE);
-                            controller.setNome (nome);
-                            controller.setEmail (email);
-
+                            Sessione sessioneCorrente = new Sessione(nome, email);
 
                             if (ruolo == Ruolo.Studente) {
 
-                                new Studente(controller);
+                                new Studente(sessioneCorrente);
                                 dispose();
 
                             } else {
 
-                                new Docente(controller);
+                                new Docente(sessioneCorrente);
                                 dispose();
 
                             }

@@ -15,9 +15,7 @@ public class Studente extends JFrame{
     private JButton visualizzaITuoiTaskButton;
     private JButton consegnaUnTaskButton;
 
-    private ControllerGestoreClasse controller;
-
-    public Studente(ControllerGestoreClasse controller) {
+    public Studente(Sessione sessioneCorrente) {
 
         this.setContentPane(this.panel);
 
@@ -33,13 +31,13 @@ public class Studente extends JFrame{
 
         this.setSize(530, 350);
 
-        this.label2.setText(("Ciao, "+controller.getNome()+"!"));
+        this.label2.setText(("Ciao, "+sessioneCorrente.getNome()+"!"));
 
         iscriviAClasseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new IscrizioneIndiretta(controller);
+                new IscrizioneIndiretta(sessioneCorrente);
 
             }
         });

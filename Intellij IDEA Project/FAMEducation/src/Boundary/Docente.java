@@ -17,12 +17,7 @@ public class Docente extends JFrame {
     private JButton assegnaUnTaskButton;
     private JButton monitoraAndamentoButton;
 
-    private ControllerGestoreClasse controller;
-
-
-    public Docente(ControllerGestoreClasse controller) {
-
-        this.controller = controller;
+    public Docente(Sessione sessioneCorrente) {
 
         this.setContentPane(this.panel);
 
@@ -38,13 +33,15 @@ public class Docente extends JFrame {
 
         this.setSize(530, 350);
 
-        this.label2.setText(("Ciao, "+controller.getNome()+"!"));
+        this.label2.setText(("Ciao, "+sessioneCorrente.getNome()+"!"));
+
+        ControllerGestoreClasse controller = ControllerGestoreClasse.getInstance();
 
         creaUnTaskButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new CreaTask(controller);
+                new CreaTask(sessioneCorrente);
 
             }
         });

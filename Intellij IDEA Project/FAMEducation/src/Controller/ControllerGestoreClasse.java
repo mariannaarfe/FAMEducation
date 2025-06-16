@@ -6,23 +6,12 @@ import java.time.LocalDate;
 
 public class ControllerGestoreClasse {
 
-    private String nome;
-    private String email;
+    private static ControllerGestoreClasse instance = new ControllerGestoreClasse();
 
-    public String getNome() {
-        return nome;
-    }
+    private ControllerGestoreClasse() {}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public static ControllerGestoreClasse getInstance() {
+        return instance;
     }
 
     public int registraUtente (String nome, String cognome, String email, Ruolo ruolo, String password) {

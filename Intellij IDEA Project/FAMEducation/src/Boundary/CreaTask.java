@@ -20,11 +20,7 @@ public class CreaTask extends JFrame {
     private JButton creaButton;
     private JButton annullaButton;
 
-    private ControllerGestoreClasse controller;
-
-    public CreaTask(ControllerGestoreClasse controller) {
-
-        this.controller = controller;
+    public CreaTask(Sessione sessioneCorrente) {
 
         this.setContentPane(this.panel);
 
@@ -40,6 +36,8 @@ public class CreaTask extends JFrame {
 
         this.setSize(530, 320);
 
+        ControllerGestoreClasse controller = ControllerGestoreClasse.getInstance();
+
         creaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,7 +49,7 @@ public class CreaTask extends JFrame {
 
                 if (ret == 0) {
 
-                    int controllo = controller.creaTask(titolo_text.getText(), descr_text.getText(), data, Integer.parseInt(punteggio_text.getText()), controller.getEmail());
+                    int controllo = controller.creaTask(titolo_text.getText(), descr_text.getText(), data, Integer.parseInt(punteggio_text.getText()), sessioneCorrente.getEmail());
 
                     if (controllo == 0) {
 

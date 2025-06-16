@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 
 public class IscrizioneIndiretta extends JFrame {
 
-    private ControllerGestoreClasse controller;
-
     private JPanel panel;
     private JLabel label;
     private JLabel codice_label;
@@ -17,8 +15,7 @@ public class IscrizioneIndiretta extends JFrame {
     private JButton iscrivitiButton;
     private JButton annullaButton;
 
-
-    public IscrizioneIndiretta(ControllerGestoreClasse controller) {
+    public IscrizioneIndiretta(Sessione sessioneCorrente) {
 
         this.setContentPane(this.panel);
 
@@ -38,11 +35,13 @@ public class IscrizioneIndiretta extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                ControllerGestoreClasse controller = ControllerGestoreClasse.getInstance();
+
                 int controllo = controlloDati();
 
                 if (controllo == 0) {
 
-                    int ret = controller.iscrizioneIndiretta(codice_text.getText(), controller.getEmail());
+                    int ret = controller.iscrizioneIndiretta(codice_text.getText(), sessioneCorrente.getEmail());
 
                     switch (ret) {
 
