@@ -45,13 +45,15 @@ public class CreaTask extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 LocalDate data;
-                data = LocalDate.of(Integer.parseInt((String)anno.getSelectedItem()), Integer.parseInt((String)mese.getSelectedItem()), Integer.parseInt((String)giorno.getSelectedItem()));
+                data = LocalDate.of(Integer.parseInt((String) anno.getSelectedItem()), Integer.parseInt((String) mese.getSelectedItem()), Integer.parseInt((String) giorno.getSelectedItem()));
 
                 int ret = controlloDati(data);
 
-                if(ret == 0) {
+                if (ret == 0) {
 
-                    if (controller.creaTask(titolo_text.getText(), descr_text.getText(), data, Integer.parseInt(punteggio_text.getText()), controller.getEmail()) == 0) {
+                    int controllo = controller.creaTask(titolo_text.getText(), descr_text.getText(), data, Integer.parseInt(punteggio_text.getText()), controller.getEmail());
+
+                    if (controllo == 0) {
 
                         JOptionPane.showMessageDialog(new JFrame(), "Task creato correttamente", "Task creato", JOptionPane.WARNING_MESSAGE);
                         dispose();
@@ -65,6 +67,7 @@ public class CreaTask extends JFrame {
                 }
 
             }
+
         });
 
         annullaButton.addActionListener(new ActionListener() {

@@ -48,31 +48,31 @@ public class RegistraUtente extends JFrame {
 
                     int controllo = controller.registraUtente(nome, cognome, email, ruolo, password);
 
-                    if (controllo == 0) {
+                    switch (controllo) {
 
-                        JOptionPane.showMessageDialog(new JFrame(), "L'utente è stato registrato correttamente", "Utente registrato", JOptionPane.WARNING_MESSAGE);
-                        controller.setNome (nome);
-                        controller.setEmail (email);
+                        case 0 ->{
+                            JOptionPane.showMessageDialog(new JFrame(), "L'utente è stato registrato correttamente", "Utente registrato", JOptionPane.WARNING_MESSAGE);
+                            controller.setNome (nome);
+                            controller.setEmail (email);
 
-                        if (ruolo == Ruolo.Studente) {
 
-                            new Studente(controller);
-                            dispose();
+                            if (ruolo == Ruolo.Studente) {
 
-                        } else {
+                                new Studente(controller);
+                                dispose();
 
-                            new Docente(controller);
-                            dispose();
+                            } else {
+
+                                new Docente(controller);
+                                dispose();
+
+                            }
 
                         }
 
-                    } else if (controllo == -1) {
+                        case -1 -> JOptionPane.showMessageDialog(new JFrame(), "L'utente esiste già!", "Utente non registrato", JOptionPane.ERROR_MESSAGE);
 
-                        JOptionPane.showMessageDialog(new JFrame(), "L'utente esiste già!", "Utente non registrato", JOptionPane.ERROR_MESSAGE);
-
-                    } else {
-
-                        JOptionPane.showMessageDialog(new JFrame(), "Errore generico nella registrazione", "Utente non registrato", JOptionPane.ERROR_MESSAGE);
+                        default -> JOptionPane.showMessageDialog(new JFrame(), "Errore generico nella registrazione", "Utente non registrato", JOptionPane.ERROR_MESSAGE);
 
                     }
 
