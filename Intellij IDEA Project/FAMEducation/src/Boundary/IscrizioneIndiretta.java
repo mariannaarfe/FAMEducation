@@ -81,14 +81,12 @@ public class IscrizioneIndiretta extends JFrame {
 
         }
 
-        /*
+
         if (!(codice_text.getText().matches(".*[^a-zA-Z0-9].*"))) {
 
             JOptionPane.showMessageDialog(new JFrame(), "Il codice deve necessariamente contenere un carattere speciale", "Errore inserimento codice", JOptionPane.ERROR_MESSAGE);
 
         }
-
-        */
 
         return ret;
 
