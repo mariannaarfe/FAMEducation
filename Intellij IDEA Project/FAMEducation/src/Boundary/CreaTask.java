@@ -89,14 +89,14 @@ public class CreaTask extends JFrame {
 
         if (descr_text.getText().length() == 0 || descr_text.getText().length() > 150) {
 
-            JOptionPane.showMessageDialog(new JFrame(), "La lunghezza del titolo deve essere compreso tra 1 e 150 caratteri", "Errore inserimento descrizione", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "La lunghezza della descrizione deve essere compreso tra 1 e 150 caratteri", "Errore inserimento descrizione", JOptionPane.ERROR_MESSAGE);
             ret = -1;
 
         }
 
-        if (punteggio_text.getText().length() <= 0 || punteggio_text.getText().matches(".*[^a-zA-Z0-9].*")) {
+        if (punteggio_text.getText().length() <= 0 || !(punteggio_text.getText().matches("\\d+"))) {
 
-            JOptionPane.showMessageDialog(new JFrame(), "Il punteggio deve essere maggiore di 0 e non può contenere caratteri speciali", "Errore inserimento punteggio", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "Il punteggio deve essere maggiore di 0 e non può contenere caratteri speciali o lettere", "Errore inserimento punteggio", JOptionPane.ERROR_MESSAGE);
             ret=-1;
 
         }

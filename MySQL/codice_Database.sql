@@ -72,9 +72,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Task` (
   `Descrizione` VARCHAR(150) NOT NULL,
   `Scadenza` DATE NOT NULL,
   `MaxPuntiAssegnabili` INT NOT NULL,
-  `ClassiVirtuali_CodiceUnivoco` VARCHAR(8) NOT NULL,
-  PRIMARY KEY (`Titolo`, `ClassiVirtuali_CodiceUnivoco`),
+  `Docenti_Email` VARCHAR(50) NOT NULL,
+  `ClassiVirtuali_CodiceUnivoco` VARCHAR(8) NULL,
+  PRIMARY KEY (`Titolo`, `Docenti_Email`),
+  INDEX `fk_Task_Docenti1_idx` (`Docenti_Email` ASC) VISIBLE,
   INDEX `fk_Task_ClassiVirtuali1_idx` (`ClassiVirtuali_CodiceUnivoco` ASC) VISIBLE,
+  CONSTRAINT `fk_Task_Docenti1`
+    FOREIGN KEY (`Docenti_Email`)
+    REFERENCES `mydb`.`Docenti` (`Email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Task_ClassiVirtuali1`
     FOREIGN KEY (`ClassiVirtuali_CodiceUnivoco`)
     REFERENCES `mydb`.`ClassiVirtuali` (`CodiceUnivoco`)
@@ -89,19 +96,20 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Consegne` (
   `Soluzione` VARCHAR(50) NOT NULL,
   `Punteggio` INT NULL,
-  `Task_Titolo` VARCHAR(50) NOT NULL,
-  `Task_ClassiVirtuali_CodiceUnivoco` VARCHAR(8) NOT NULL,
   `Studenti_Email` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`),
+  `Task_Titolo` VARCHAR(50) NOT NULL,
+  `Task_Docenti_Email` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`),
   INDEX `fk_Consegne_Studenti1_idx` (`Studenti_Email` ASC) VISIBLE,
-  CONSTRAINT `fk_Consegne_Task1`
-    FOREIGN KEY (`Task_Titolo` , `Task_ClassiVirtuali_CodiceUnivoco`)
-    REFERENCES `mydb`.`Task` (`Titolo` , `ClassiVirtuali_CodiceUnivoco`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_Consegne_Task1_idx` (`Task_Titolo` ASC, `Task_Docenti_Email` ASC) VISIBLE,
   CONSTRAINT `fk_Consegne_Studenti1`
     FOREIGN KEY (`Studenti_Email`)
     REFERENCES `mydb`.`Studenti` (`Email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Consegne_Task1`
+    FOREIGN KEY (`Task_Titolo` , `Task_Docenti_Email`)
+    REFERENCES `mydb`.`Task` (`Titolo` , `Docenti_Email`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -208,15 +216,15 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Esercizi Limiti', 'Svolgere almeno due dei tre esercizi proposti per poter ottenere la sufficienza', '2025-07-01', 9, 'op3t5p4!');
-INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Prova Laplace', 'Completare la prova assegnata per essere esonerati dallo svolgimento dell\'esercizio su Laplace all\'esame', '2025-06-15', 10, 'o2i3k4j!');
-INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Simulazione Esame', 'File da completare: header.h, main.c, client.c, server.c', '2025-07-12', 30, 'u6j5o34!');
-INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Sequence Diagram', 'Sviluppare il sequence diagram del caso d\'uso allegato alla prova', '2025-06-17', 5, 'i8k6j5h!');
-INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Equazioni Differenziali', 'Svolgere almeno due dei tre esercizi sulle equazioni differenziali', '2025-09-01', 9, 'n4m3b2v!');
-INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Matlab', 'Consegnare lo script di matlab degli esercizi riguardanti i controllori dinamici', '2025-10-11', 13, 'v3c4n5m!');
-INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Simulazione Esame 2', 'Esercitazione sui thread. Da completare: header.h, main.c, client.c, server.c', '2025-08-01', 30, 'u6j5o34!');
-INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Prova Fourier', 'Completare la prova assegnata per essere esonerati dallo svolgimento dell\'esercizio su Fourier all\'esame', '2025-06-25', 10, 'o2i3k4j!');
-INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Prova Residui', 'Completare la prova assegnata per essere esonerati dallo svolgimento dell\'esercizio sui residui all\'esame', '2025-06-30', 10, 'o2i3k4j!');
+INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `Docenti_Email`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Esercizi Limiti', 'Svolgere almeno due dei tre esercizi proposti per poter ottenere la sufficienza', '2025-07-01', 9, 'martinpalumbo@unina.it', 'op3t5p4!');
+INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `Docenti_Email`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Prova Laplace', 'Completare la prova assegnata per essere esonerati dallo svolgimento dell\'esercizio su Laplace all\'esame', '2025-06-15', 10, 'francol@unina.it', 'o2i3k4j!');
+INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `Docenti_Email`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Simulazione Esame', 'File da completare: header.h, main.c, client.c, server.c', '2025-07-12', 30, 'antonioconte@unina.it', 'u6j5o34!');
+INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `Docenti_Email`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Sequence Diagram', 'Sviluppare il sequence diagram del caso d\'uso allegato alla prova', '2025-06-17', 5, 'pablopicasso@unina.it', 'i8k6j5h!');
+INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `Docenti_Email`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Equazioni Differenziali', 'Svolgere almeno due dei tre esercizi sulle equazioni differenziali', '2025-09-01', 9, 'martinpalumbo@unina.it', 'op3t5p4!');
+INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `Docenti_Email`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Matlab', 'Consegnare lo script di matlab degli esercizi riguardanti i controllori dinamici', '2025-10-11', 13, 'francol@unina.it', 'v3c4n5m!');
+INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `Docenti_Email`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Simulazione Esame 2', 'Esercitazione sui thread. Da completare: header.h, main.c, client.c, server.c', '2025-08-01', 30, 'antonioconte@unina.it', 'u6j5o34!');
+INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `Docenti_Email`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Prova Fourier', 'Completare la prova assegnata per essere esonerati dallo svolgimento dell\'esercizio su Fourier all\'esame', '2025-06-25', 10, 'francol@unina.it', 'o2i3k4j!');
+INSERT INTO `mydb`.`Task` (`Titolo`, `Descrizione`, `Scadenza`, `MaxPuntiAssegnabili`, `Docenti_Email`, `ClassiVirtuali_CodiceUnivoco`) VALUES ('Prova Residui', 'Completare la prova assegnata per essere esonerati dallo svolgimento dell\'esercizio sui residui all\'esame', '2025-06-30', 10, 'francol@unina.it', 'o2i3k4j!');
 
 COMMIT;
 
@@ -226,25 +234,25 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('es_limiti.txt', NULL, 'Esercizi Limiti', 'op3t5p4!', 'massimoran@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('esercizi_limiti.txt', NULL, 'Esercizi Limiti', 'op3t5p4!', 'miriamleone@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('limiti.txt', NULL, 'Esercizi Limiti', 'op3t5p4!', 'demme33@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('esonero.txt', 10, 'Prova Laplace', 'o2i3k4j!', 'diegoarmando@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('laplace.txt', 4, 'Prova Laplace', 'o2i3k4j!', 'biancolino@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('es_laplace.txt', 7, 'Prova Laplace', 'o2i3k4j!', 'gianlucagrign@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('laplace.txt', 1, 'Prova Laplace', 'o2i3k4j!', 'gerryscotti@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('simulazione.txt', 30, 'Simulazione Esame', 'u6j5o34!', 'mariannaarfe@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('simulazione_thread.txt', 30, 'Simulazione Esame 2', 'u6j5o34!', 'mariannaarfe@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('sd.txt', 5, 'Sequence Diagram', 'i8k6j5h!', 'federicanargi@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('sequence_diagram.txt', 2, 'Sequence Diagram', 'i8k6j5h!', 'geolier1@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('seq_diagr.txt', 4, 'Sequence Diagram', 'i8k6j5h!', 'gianlucagaetano@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('sequence.txt', 5, 'Sequence Diagram', 'i8k6j5h!', 'antoniocol1@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('eq_differenziali.txt', 9, 'Equazioni Differenziali', 'n4m3b2v!', 'auroraramaz@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('equazioni_differenziali.txt', 8, 'Equazioni Differenziali', 'n4m3b2v!', 'giuliadelellis@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('esonero_fourier.txt', 10, 'Prova Fourier', 'o2i3k4j!', 'diegoarmando@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('fourier.txt', 6, 'Prova Fourier', 'o2i3k4j!', 'gerryscotti@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('esonero_residui.txt', 10, 'Prova Residui', 'o2i3k4j!', 'diegoarmando@unina.it');
-INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Task_Titolo`, `Task_ClassiVirtuali_CodiceUnivoco`, `Studenti_Email`) VALUES ('es_residui.txt', 4, 'Prova Residui', 'o2i3k4j!', 'gerryscotti@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('es_limiti.txt', NULL, 'massimoran@unina.it', 'Esercizi Limiti', 'martinpalumbo@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('esercizi_limiti.txt', NULL, 'miriamleone@unina.it', 'Esercizi Limiti', 'martinpalumbo@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('limiti.txt', NULL, 'demme33@unina.it', 'Esercizi Limiti', 'martinpalumbo@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('esonero.txt', 10, 'diegoarmando@unina.it', 'Prova Laplace', 'francol@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('laplace.txt', 4, 'biancolino@unina.it', 'Prova Laplace', 'francol@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('es_laplace.txt', 7, 'gianlucagrign@unina.it', 'Prova Laplace', 'francol@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('laplace.txt', 1, 'gerryscotti@unina.it', 'Prova Laplace', 'francol@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('simulazione.txt', 30, 'mariannaarfe@unina.it', 'Simulazione Esame', 'antonioconte@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('simulazione_thread.txt', 30, 'mariannaarfe@unina.it', 'Simulazione Esame 2', 'antonioconte@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('sd.txt', 5, 'federicanargi@unina.it', 'Sequence Diagram', 'pablopicasso@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('sequence_diagram.txt', 2, 'geolier1@unina.it', 'Sequence Diagram', 'pablopicasso@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('seq_diagr.txt', 4, 'gianlucagaetano@unina.it', 'Sequence Diagram', 'pablopicasso@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('sequence.txt', 5, 'antoniocol1@unina.it', 'Sequence Diagram', 'pablopicasso@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('eq_differenziali.txt', 9, 'auroraramaz@unina.it', 'Equazioni Differenziali', 'martinpalumbo@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('equazioni_differenziali.txt', 8, 'giuliadelellis@unina.it', 'Equazioni Differenziali', 'martinpalumbo@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('esonero_fourier.txt', 10, 'diegoarmando@unina.it', 'Prova Fourier', 'francol@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('fourier.txt', 6, 'gerryscotti@unina.it', 'Prova Fourier', 'francol@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('esonero_residui.txt', 10, 'diegoarmando@unina.it', 'Prova Residui', 'francol@unina.it');
+INSERT INTO `mydb`.`Consegne` (`Soluzione`, `Punteggio`, `Studenti_Email`, `Task_Titolo`, `Task_Docenti_Email`) VALUES ('es_residui.txt', 4, 'gerryscotti@unina.it', 'Prova Residui', 'francol@unina.it');
 
 COMMIT;
 
